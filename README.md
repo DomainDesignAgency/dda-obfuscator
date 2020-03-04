@@ -22,8 +22,13 @@ Adds an email obfuscator to your wordpress site.
 3. Add the first part of the email address in the user="add-here"
 4. Add the domain in domain="add-domain-here.com"
 
-**Example**
-jon@mydomain.com would be
+**Example** jon@mydomain.com would be
 ```
 [dda_obfuscator user="jon" domain="mydomain.com"]jon@mydomain.com[/dda_obfuscator]
+```
+
+### Template file
+**Hardcoded**
+```
+<a href="#" data-user="jon" data-site="mydomain">Enable Javascript</a>
 ```
