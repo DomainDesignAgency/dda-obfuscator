@@ -9,36 +9,53 @@
 * License: GPL12
 */
 
-// create a way to add shortcodes through tinymice 
-// adds an Email Obfuscator to anything in the shortcode 
-
 // Add shortcode option to wordpress editor
 // init process for registering our button
-add_action('init', 'dda_shortcode_button_init');
-function dda_shortcode_button_init() {
+add_action( 'after_setup_theme', 'dda_theme_setup' );
 
-     //Abort early if the user will never see TinyMCE
-     if ( ! current_user_can('edit_posts') && ! current_user_can('edit_pages') && get_user_option('rich_editing') == 'true')
-          return;
+if ( ! function_exists( 'dda_theme_setup' ) ) {
+    function dda_theme_setup() {
 
-     //Add a callback to regiser our tinymce plugin   
-     add_filter("mce_external_plugins", "dda_register_tinymce_plugin"); 
+        add_action( 'init', 'dda_buttons' );
 
-     // Add a callback to add our button to the TinyMCE toolbar
-     add_filter('mce_buttons', 'dda_add_tinymce_button');
+    }
 }
 
+/********* TinyMCE Buttons ***********/
+if ( ! function_exists( 'dda_buttons' ) ) {
+    function dda_buttons() {
+        if ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'edit_pages' ) ) {
+            return;
+        }
 
-//This callback registers our plug-in
-function dda_register_tinymce_plugin($plugin_array) {
-   $plugin_array['dda_button'] = plugins_url( '/js/shortcode.js', __FILE__ );
-   return $plugin_array;
+        if ( get_user_option( 'rich_editing' ) !== 'true' ) {
+            return;
+        }
+
+        add_filter( 'mce_external_plugins', 'dda_add_buttons' );
+        add_filter( 'mce_buttons', 'dda_register_buttons' );
+    }
 }
 
-//This callback adds our button to the toolbar
-function dda_add_tinymce_button($buttons) {
-           //Add the button ID to the $button array
-   $buttons[] = "dda_button";
-   return $buttons;
+if ( ! function_exists( 'dda_add_buttons' ) ) {
+    function dda_add_buttons( $plugin_array ) {
+        $plugin_array['mybutton'] = plugins_url( '/js/shortcode.js', __FILE__ );
+        return $plugin_array;
+    }
 }
 
+if ( ! function_exists( 'dda_register_buttons' ) ) {
+    function dda_register_buttons( $buttons ) {
+        array_push( $buttons, 'mybutton' );
+        return $buttons;
+    }
+}
+
+// Add Shortcode 
+require_once __DIR__ . '/includes/shortcode.php';
+
+// JS 
+function dda_obfuscator_shortcode_js() {   
+    wp_enqueue_script( 'dda_obfuscator_js', plugin_dir_url( __FILE__ ) . '/js/email-obfuscate.js', array(), false, true );
+}
+add_action('wp_enqueue_scripts', 'dda_obfuscator_shortcode_js');

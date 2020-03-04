@@ -1,29 +1,24 @@
-jQuery(document).ready(function($) {
-
-    tinymce.create('tinymce.plugins.dda_plugin', {
-        init : function(ed, url) {
-                // Register command for when button is clicked
-                ed.addCommand('dda_insert_shortcode', function() {
-                    selected = tinyMCE.activeEditor.selection.getContent();
+// https://www.tiny.cloud/docs/advanced/creating-a-plugin/
+(function() {
+    tinymce.PluginManager.add('mybutton', function(editor, url) {
+        editor.addButton('mybutton', {
+            text: 'Hide harry',
+            icon: false,
+            onclick: function() {
+                selected = tinyMCE.activeEditor.selection.getContent();
 
                     if( selected ){
                         //If text is selected when button is clicked
                         //Wrap shortcode around it.
-                        content =  '[shortcode]'+selected+'[/shortcode]';
+                        //Things to do
+                        //Add in a mailto part that uses the select or change to as we can't use the default link
+                        content =  '[dda_obfuscator user="" domain=""]'+selected+'[/dda_obfuscator]';
                     }else{
-                        content =  '[shortcode]';
+                        alert('Please highlight email to hide from bots');
                     }
 
                     tinymce.execCommand('mceInsertContent', false, content);
-                });
-
-            // Register buttons - trigger above command when clicked
-            ed.addButton('dda_button', {title : 'Insert shortcode', cmd : 'dda_insert_shortcode' });
-        },   
-    });
-
-    // Register our TinyMCE plugin
-    // first parameter is the button ID1
-    // second parameter must match the first parameter of the tinymce.create() function above
-    tinymce.PluginManager.add('dda_button', tinymce.plugins.dda_plugin);
-});
+            }
+        })
+    })
+})();
