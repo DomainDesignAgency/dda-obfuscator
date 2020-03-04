@@ -1,5 +1,5 @@
 # DDA Obfuscator
-Adds an email obfuscator to your wordpress site.
+Adds an email obfuscator to your Wordpress site.
 
 ## Instalation
 
