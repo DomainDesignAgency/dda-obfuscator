@@ -32,3 +32,15 @@ Adds an email obfuscator to your Wordpress site.
 ```
 <a href="#" data-user="jon" data-site="mydomain">Enable Javascript</a>
 ```
+
+## Plugin Updates / Customisation 
+
+### Install dependencies
+```
+npm install
+```
+
+### Build JS
+```
+npm run build
+```
