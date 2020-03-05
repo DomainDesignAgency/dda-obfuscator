@@ -39,7 +39,7 @@ if ( ! function_exists( 'dda_buttons' ) ) {
 
 if ( ! function_exists( 'dda_add_buttons' ) ) {
     function dda_add_buttons( $plugin_array ) {
-        $plugin_array['mybutton'] = plugins_url( '/js/shortcode.js', __FILE__ );
+        $plugin_array['mybutton'] = plugins_url( '/assets/js/admin.js', __FILE__ );
         return $plugin_array;
     }
 }
@@ -56,6 +56,6 @@ require_once __DIR__ . '/includes/shortcode.php';
 
 // JS 
 function dda_obfuscator_shortcode_js() {   
-    wp_enqueue_script( 'dda_obfuscator_js', plugin_dir_url( __FILE__ ) . '/js/email-obfuscate.js', array(), false, true );
+    wp_enqueue_script( 'dda_obfuscator_js', plugin_dir_url( __FILE__ ) . 'assets/js/frontend.js', array(), false, true );
 }
 add_action('wp_enqueue_scripts', 'dda_obfuscator_shortcode_js');

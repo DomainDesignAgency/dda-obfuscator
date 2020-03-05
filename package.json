@@ -1,0 +1,37 @@
+{
+  "name": "dda-obfuscator",
+  "version": "0.0.1",
+  "description": "Email Obfuscator Wordpress Plugin",
+  "main": "index.js",
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "scripts": {
+    "watch": "webpack --mode=development --watch --config webpack-config.js",
+    "build": "webpack --mode=production --config webpack-config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/waltercraig/dda-obfuscator.git"
+  },
+  "keywords": [
+    "Email",
+    "Obfuscator"
+  ],
+  "author": "Walter Craig",
+  "license": "GPL-2.0+",
+  "bugs": {
+    "url": "https://github.com/waltercraig/dda-obfuscator/issues"
+  },
+  "homepage": "https://github.com/waltercraig/dda-obfuscator#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
+  }
+}
